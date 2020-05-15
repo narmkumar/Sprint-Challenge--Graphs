@@ -29,9 +29,44 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
 
 
-# TRAVERSAL TEST - DO NOT MODIFY
+# Create a Q and enqueue starting vertex
+qq = Queue()
+qq.enqueue([player.current_room])
+# Create a set of traversed vertices
+visited = set()
+# While queue is not empty
+while qq.size() > 0:
+    # dequeue/pop the first vertex
+    path = qq.dequeue()
+    # if not visited
+    if path[-1] not in visited:
+        # Do the thing here
+        print(path[-1])
+        # Mark as visited
+        visited.add(path[-1])
+        # enqueue all neighbors
+        for next_vert in self.get_neighbors(path[-1]):
+            new_path = list(path)
+            new_path.append(next_vert)
+            qq.enqueue(new_path)
+
+
+
+# TRAVERSAL TEST
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
@@ -51,12 +86,13 @@ else:
 #######
 # UNCOMMENT TO WALK AROUND
 #######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
+
